@@ -9,6 +9,12 @@
 </template>
 
 <style>
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -18,7 +24,8 @@
 }
 
 nav {
-  padding: 30px;
+  height: 80px;
+  background-color: red;
 }
 
 nav a {
@@ -28,5 +35,10 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+/* Default styles */
+h1, h2 {
+  margin: 0px;
 }
 </style>
