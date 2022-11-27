@@ -1,14 +1,30 @@
 <template>
   <div class="register">
-    <h1>Register</h1>
+    <input type="text" placeholder="Buscar">
+    <list />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import list from '@/components/list.vue'
 
 export default {
   name: 'RegisterView',
-  components: {}
+  components: {
+    list
+  }
 }
 </script>
+
+<style scoped>
+.register {
+    background-color: blueviolet;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+</style>
