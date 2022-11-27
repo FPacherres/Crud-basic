@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="action">
-        <button @click="add">Agregar</button>
+        <button @click="showModal = true">Agregar</button>
     </div>
     <!-- <div class="A1 A">A1</div>
     <div class="A2 A">A2</div>
@@ -25,6 +25,14 @@
     <div class="A4 A">A4</div>
     <div class="A5 A">A5</div>
     <div class="A6 A">A6</div> -->
+    <div class="modal" v-if="showModal">
+        <label>Nombre</label>
+        <input type="text" placeholder="Nombre">
+        <label>Dni</label>
+        <input type="text" placeholder="Dni">
+        <button @click="add">Guardar</button>
+        <button @click="showModal = false">Cancelar</button>
+    </div>
   </div>
 </template>
 
@@ -36,7 +44,8 @@ export default {
   components: {},
   data() {
     return {
-        students: []
+        students: [],
+        showModal: false
     }
   },
   methods: {
@@ -45,6 +54,7 @@ export default {
             name: "Marcos",
             dni: "934346457"
         })
+        this.showModal = false
     },
     remove(pos) {
         this.students.splice(pos,1)
@@ -94,6 +104,17 @@ export default {
 }
 .action {
     background-color: rgb(17, 165, 214);
+}
+.modal {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 /* .A {
     font-size: 20px;
