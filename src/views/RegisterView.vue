@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 .register {
-    background-color: blueviolet;
+    background-color: #E6EBE0;
     height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
