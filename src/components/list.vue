@@ -81,7 +81,7 @@ export default {
         'A3 A6 A5'; */
 }
 .header {
-    background-color: rgb(214, 126, 17);
+    background-color: #36C9C6;
     display: grid;
     grid-template-columns: 2fr 1fr 200px;
 }
@@ -92,7 +92,8 @@ export default {
     border: 1px solid white;
 }
 .list {
-    background-color: rgb(17, 214, 43);
+    background-color: #E6EBE0;
+    border: 1px solid #a3a5a1;
 }
 .item {
     background-color: rgba(0, 0, 0, 0.123);
