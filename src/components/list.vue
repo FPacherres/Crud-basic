@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div class="header">
-        <div>Nombre</div>
+        <div>Nombres</div>
+        <div>Apellidos</div>
         <div>DNI</div>
         <div>Actiones</div>
     </div>
@@ -9,6 +10,7 @@
         <div class="item" v-for="(student, i) in students" 
         :key="i">
             <div>{{ student.name }}</div>
+            <div>{{student.surname}}</div>
             <div>{{ student.dni }}</div>
             <div>
                 <button @click="edit(i)">edit</button>
@@ -26,8 +28,10 @@
     <div class="A5 A">A5</div>
     <div class="A6 A">A6</div> -->
     <div class="modal" v-if="showModal">
-        <label>Nombre</label>
+        <label>Nombres</label>
         <input type="text" placeholder="Nombre">
+        <label>Apellidos</label>
+        <input type="text" placeholder="Apellido">
         <label>Dni</label>
         <input type="text" placeholder="Dni">
         <button @click="add">Guardar</button>
@@ -52,6 +56,7 @@ export default {
     add() {
         this.students.push({
             name: "Marcos",
+            surname: "Pérez",
             dni: "934346457"
         })
         this.showModal = false
@@ -60,7 +65,7 @@ export default {
         this.students.splice(pos,1)
     },
     edit(pos) {
-        this.students.splice(pos,1, {name: "Fabian", dni: '1323423423'})
+        this.students.splice(pos,1, {name: "Fabian", surname: "Pacherres", dni: '1323423423'})
     }
   }
 }
@@ -83,7 +88,7 @@ export default {
 .header {
     background-color: #36C9C6;
     display: grid;
-    grid-template-columns: 2fr 1fr 200px;
+    grid-template-columns: 1fr 1fr 1fr 200px;
 }
 .header div {
     display: flex;
@@ -98,7 +103,7 @@ export default {
 .item {
     background-color: rgba(0, 0, 0, 0.123);
     display: grid;
-    grid-template-columns: 2fr 1fr 200px;
+    grid-template-columns: 1fr 1fr 1fr 200px;
 }
 .item div {
     border: 1px solid white;
