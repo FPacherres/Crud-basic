@@ -13,7 +13,7 @@
             <div>{{student.surname}}</div>
             <div>{{ student.dni }}</div>
             <div>
-                <button @click="edit(i)">edit</button>
+                <button @click="showModalEdit(i)">edit</button>
                 <button @click="remove(i)">delete</button>
             </div>
         </div>
@@ -29,13 +29,13 @@
     <div class="A6 A">A6</div> -->
     <div class="modal" v-if="showModal">
         <label>Nombres</label>
-        <input type="text" placeholder="Nombre">
+        <input v-model="Name" type="text" placeholder="Nombre">
         <label>Apellidos</label>
-        <input type="text" placeholder="Apellido">
+        <input v-model="Surname" type="text" placeholder="Apellido">
         <label>Dni</label>
-        <input type="text" placeholder="Dni">
-        <button @click="add">Guardar</button>
-        <button @click="showModal = false">Cancelar</button>
+        <input v-model="Dni" type="text" placeholder="Dni">
+        <button @click="action">Guardar</button>
+        <button @click="showModal = false, pos=null">Cancelar</button>
     </div>
   </div>
 </template>
@@ -49,23 +49,43 @@ export default {
   data() {
     return {
         students: [],
-        showModal: false
+        showModal: false,
+        Name: '',
+        Surname: '',
+        Dni: '',
+        pos: null
     }
   },
   methods: {
     add() {
         this.students.push({
-            name: "Marcos",
-            surname: "Pérez",
-            dni: "934346457"
-        })
+            name: this.Name,
+            surname: this.Surname,
+            dni: this.Dni
+        })                
         this.showModal = false
+        this.clearModal()
+    },
+    action() {
+        this.pos===null ? this.add() : this.edit()
+    },
+    clearModal() {
+        this.Name = ''
+        this.Surname = ''
+        this.Dni = ''
+        this.pos = null
     },
     remove(pos) {
         this.students.splice(pos,1)
     },
-    edit(pos) {
-        this.students.splice(pos,1, {name: "Fabian", surname: "Pacherres", dni: '1323423423'})
+    edit(pos) {        
+        this.students.splice(pos,1, {name: this.Name, surname: this.Surname, dni: this.Dni})
+        this.showModal = false
+        this.clearModal()
+    },
+    showModalEdit(pos) {
+        this.showModal = true
+        this.pos = pos
     }
   }
 }
