@@ -39,7 +39,7 @@
         <label>Genero</label>
         <input v-model="Genero" type="text" placeholder="Genero">
         <button @click="action">Guardar</button>
-        <button @click="showModal = false, pos=null">Cancelar</button>
+        <button @click="showModal = false, clearModal()">Cancelar</button>
     </div>
   </div>
 </template>
@@ -61,6 +61,15 @@ export default {
         pos: null
     }
   },
+  watch: {
+    Dni() {
+        if(this.Dni.length > 8) {
+            let arrDNI = this.Dni.split('')
+            arrDNI.splice(7,1)
+            this.Dni = arrDNI.join('')
+        }
+    }
+  },
   //Agregar validacion y luego pushear, no editar si no estan 
   //los datos llenos, dni
   //hombre y mujer nuevo campo. 
@@ -70,25 +79,32 @@ export default {
         //if(this.Name && this.Surname && this.Dni){
         //    return true;
         //}
-        this.students.push({
-            name: this.Name,
-            surname: this.Surname,
-            dni: this.Dni,
-            genero: this.Genero
-        })
+        if(this.validationModal()) {
+            this.students.push({
+                name: this.Name,
+                surname: this.Surname,
+                dni: this.Dni,
+                genero: this.Genero
+            })
+            this.showModal = false
+            this.clearModal()
+        } else  {
+            console.log("Falta ingresar el Datos")
+        }
         //if (!this.Name) {
         //this.errors.push('El nombre es obligatorio.');
         //}
         //if (!this.Surname) {
-        //this.errors.push('El apellido es obligatorio.');
-        //}
+            //this.errors.push('El apellido es obligatorio.');
+            //}
         //if (!this.Dni) {
-        //this.errors.push('El DNI es obligatorio.');
-        //}
-                
-        this.showModal = false
-        this.clearModal()
-    },
+            //this.errors.push('El DNI es obligatorio.');
+            //}
+            
+        },
+        validationModal() {
+            return this.Name !== '' && this.Surname !== '' && String(this.Dni).length === 8 && this.Genero !== ''
+    },   
     action() {
         this.pos===null ? this.add() : this.edit()
     },
@@ -102,14 +118,22 @@ export default {
     remove(pos) {
         this.students.splice(pos,1)
     },
-    edit(pos) {        
-        this.students.splice(pos,1, {name: this.Name, surname: this.Surname, dni: this.Dni, genero: this.Genero})
-        this.showModal = false
-        this.clearModal()
+    edit() {      
+        if(this.validationModal()) {
+            this.students.splice(this.pos,1, {name: this.Name, surname: this.Surname, dni: this.Dni, genero: this.Genero})
+            this.showModal = false
+            this.clearModal()
+        } else {
+            console.log("Falta ingresar el Datos")
+        }
     },
     showModalEdit(pos) {
         this.showModal = true
         this.pos = pos
+        this.Name = this.students[this.pos].name 
+        this.Surname = this.students[this.pos].surname 
+        this.Dni = this.students[this.pos].dni
+        this.Genero = this.students[this.pos].genero 
     }
   }
 }
