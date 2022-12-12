@@ -4,6 +4,7 @@
         <div>Nombres</div>
         <div>Apellidos</div>
         <div>DNI</div>
+        <div>Genero</div>
         <div>Actiones</div>
     </div>
     <div class="list">
@@ -12,6 +13,7 @@
             <div>{{ student.name }}</div>
             <div>{{student.surname}}</div>
             <div>{{ student.dni }}</div>
+            <div>{{ student.genero }}</div>
             <div>
                 <button @click="showModalEdit(i)">edit</button>
                 <button @click="remove(i)">delete</button>
@@ -34,6 +36,8 @@
         <input v-model="Surname" type="text" placeholder="Apellido">
         <label>Dni</label>
         <input v-model="Dni" type="text" placeholder="Dni">
+        <label>Genero</label>
+        <input v-model="Genero" type="text" placeholder="Genero">
         <button @click="action">Guardar</button>
         <button @click="showModal = false, pos=null">Cancelar</button>
     </div>
@@ -53,16 +57,35 @@ export default {
         Name: '',
         Surname: '',
         Dni: '',
+        Genero: '',
         pos: null
     }
   },
+  //Agregar validacion y luego pushear, no editar si no estan 
+  //los datos llenos, dni
+  //hombre y mujer nuevo campo. 
+  //Nombres y Apellidos solo texto. no numeros
   methods: {
     add() {
+        //if(this.Name && this.Surname && this.Dni){
+        //    return true;
+        //}
         this.students.push({
             name: this.Name,
             surname: this.Surname,
-            dni: this.Dni
-        })                
+            dni: this.Dni,
+            genero: this.Genero
+        })
+        //if (!this.Name) {
+        //this.errors.push('El nombre es obligatorio.');
+        //}
+        //if (!this.Surname) {
+        //this.errors.push('El apellido es obligatorio.');
+        //}
+        //if (!this.Dni) {
+        //this.errors.push('El DNI es obligatorio.');
+        //}
+                
         this.showModal = false
         this.clearModal()
     },
@@ -73,13 +96,14 @@ export default {
         this.Name = ''
         this.Surname = ''
         this.Dni = ''
+        this.Genero = ''
         this.pos = null
     },
     remove(pos) {
         this.students.splice(pos,1)
     },
     edit(pos) {        
-        this.students.splice(pos,1, {name: this.Name, surname: this.Surname, dni: this.Dni})
+        this.students.splice(pos,1, {name: this.Name, surname: this.Surname, dni: this.Dni, genero: this.Genero})
         this.showModal = false
         this.clearModal()
     },
@@ -108,7 +132,7 @@ export default {
 .header {
     background-color: #36C9C6;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 200px;
+    grid-template-columns: 1fr 1fr 1fr  1fr 100px;
 }
 .header div {
     display: flex;
@@ -123,7 +147,7 @@ export default {
 .item {
     background-color: rgba(0, 0, 0, 0.123);
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 200px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 100px;
 }
 .item div {
     border: 1px solid white;
